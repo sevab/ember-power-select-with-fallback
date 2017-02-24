@@ -1,5 +1,5 @@
 {{#if mustFallback}}
-  <select onchange={{action "handleChange"}}>
+  <select class={{fallbackClass}} onchange={{action "handleChange"}}>
     <option value="" selected={{not selected}} disabled>{{placeholder}}</option>
     {{#if labelPath}}
 
