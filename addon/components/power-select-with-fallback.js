@@ -13,23 +13,28 @@ export default Ember.Component.extend({
 
 
   // CPs
-  mustFallback: computed('fallback-when', function() {
-    let fallbackStrategy = this.get('fallback-when');
-    switch(fallbackStrategy) {
-      case 'mobile':
-        return isMobile();
-      case 'ios':
-        return isIos();
-      case 'android':
-        return isAndroid();
-      case 'windows-phone':
-        return isWindowsPhone();
-      case undefined:
-        return false;
-      case null:
-        return false;
-      default:
-        throw new Error(`Unknown fallback strategy ${fallbackStrategy}`);
+  mustFallback: computed('fallback-when', {
+    get() {
+      let fallbackStrategy = this.get('fallback-when');
+      switch(fallbackStrategy) {
+        case 'mobile':
+          return isMobile();
+        case 'ios':
+          return isIos();
+        case 'android':
+          return isAndroid();
+        case 'windows-phone':
+          return isWindowsPhone();
+        case undefined:
+          return false;
+        case null:
+          return false;
+        default:
+          throw new Error(`Unknown fallback strategy ${fallbackStrategy}`);
+      }
+    },
+    set(_, v) {
+      return v === undefined ? get(this, 'mustFallback') : v;
     }
   }),
 
