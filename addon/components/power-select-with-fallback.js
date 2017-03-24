@@ -11,10 +11,15 @@ export default Ember.Component.extend({
   layout,
   tagName: '',
 
-
   // CPs
+  isFastBoot: computed('isFastBoot', function() {
+    return typeof FastBoot !== 'undefined';
+  }),
+
   mustFallback: computed('fallback-when', {
     get() {
+      if (this.get('isFastBoot')) { return true; }
+
       let fallbackStrategy = this.get('fallback-when');
       switch(fallbackStrategy) {
         case 'mobile':
